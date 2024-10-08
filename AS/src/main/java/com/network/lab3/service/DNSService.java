@@ -12,6 +12,9 @@ public class DNSService {
 
     public DNSInfo getDNS(String type, String name) {
         Map<String, List<String>> hostToInfos = DNSCache.getByType(type);
+        if (hostToInfos == null) {
+            return null;
+        }
         List<String> infos = hostToInfos.get(name);
         String value = infos.get(0);
         String ttl = infos.get(1);
