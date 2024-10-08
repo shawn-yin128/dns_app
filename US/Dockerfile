@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /
 
-COPY your-app.jar /us.jar
+COPY lab3-0.0.1-SNAPSHOT.jar /us.jar
 
 EXPOSE 8080
 
