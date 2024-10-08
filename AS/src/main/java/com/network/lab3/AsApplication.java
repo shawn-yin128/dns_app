@@ -57,13 +57,14 @@ public class AsApplication {
 					 BufferedWriter bw = new BufferedWriter(writer)) {
 					bw.write(info);
 					bw.newLine();
-					DNSCache.refresh();
 					code = "201";
 				} catch (IOException e) {
 					e.printStackTrace();
 					code = "500";
 				}
 			}
+
+			DNSCache.refresh();
 
 			InetAddress IPAddress = receivePacket.getAddress();
 			int port = receivePacket.getPort();
