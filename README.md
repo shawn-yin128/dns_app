@@ -18,6 +18,6 @@ docker run --name fs-app -p 9090:9090 fs-app
 ```shell
 # build
 docker build -t us-app .
-# run and pass the as IP address
+# run 
 docker run --name us-app -p 8080:8080 us-app
 ```
