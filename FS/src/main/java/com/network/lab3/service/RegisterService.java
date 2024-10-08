@@ -12,7 +12,7 @@ public class RegisterService {
 
     public String putRegister(FSInformation fsInformation) throws Exception {
         DatagramSocket clientSocket = new DatagramSocket();
-        InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
+        InetAddress IPAddress = InetAddress.getByName("host.docker.internal");
 
         byte[] sendData;
         byte[] receiveData = new byte[3];
