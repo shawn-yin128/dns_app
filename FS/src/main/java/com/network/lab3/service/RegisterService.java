@@ -10,12 +10,11 @@ import java.net.InetAddress;
 
 @Service
 public class RegisterService {
-    @Value("${asIP:localhost}")
-    private String asIP;
 
     public String putRegister(FSInformation fsInformation) throws Exception {
         DatagramSocket clientSocket = new DatagramSocket();
-        InetAddress IPAddress = InetAddress.getByName(asIP);
+        InetAddress IPAddress = InetAddress.getByName(fsInformation.getAsIp());
+        int port = Integer.parseInt(fsInformation.getAsPort());
 
         byte[] sendData;
         byte[] receiveData = new byte[3];
@@ -26,7 +25,7 @@ public class RegisterService {
                 "TTL=10", fsInformation.getHostname(), fsInformation.getIp());
         sendData = sentence.getBytes();
 
-        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 53533);
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
         clientSocket.send(sendPacket);
 
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
