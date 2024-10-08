@@ -6,16 +6,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.network.lab3.AsApplication.DNS_FILE_NAME;
 
 @Component
 public class DNSCache {
-    static Map<String, Map<String, List<String>>> DNSMap;
+    static Map<String, String> DNSMap;
     
     static {
         File dnsFile = new File(DNS_FILE_NAME);
@@ -40,9 +37,8 @@ public class DNSCache {
                     String name = fields[1].trim();
                     String value = fields[2].trim();
                     String ttl = fields[3].trim();
-                    Map<String, List<String>> hostToInfos = new HashMap<>();
-                    hostToInfos.put(name, Arrays.asList(value, ttl));
-                    DNSMap.put(type, hostToInfos);
+                    String info = value + "," + ttl;
+                    DNSMap.put(type + "+" + name, info);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -54,7 +50,9 @@ public class DNSCache {
         parse();
     }
 
-    public static Map<String, List<String>> getByType(String type) {
-        return DNSMap.get(type);
+    public static String searchByTypeHost(String type, String host) {
+        String infos = DNSMap.get(type + "+" + host);
+
+        return infos;
     }
 }

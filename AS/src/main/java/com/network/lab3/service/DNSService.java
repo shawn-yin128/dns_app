@@ -11,13 +11,15 @@ import java.util.Map;
 public class DNSService {
 
     public DNSInfo getDNS(String type, String name) {
-        Map<String, List<String>> hostToInfos = DNSCache.getByType(type);
+        String hostToInfos = DNSCache.searchByTypeHost(type, name);
         if (hostToInfos == null) {
             return null;
         }
-        List<String> infos = hostToInfos.get(name);
-        String value = infos.get(0);
-        String ttl = infos.get(1);
+
+        String[] infos = hostToInfos.split(",");
+
+        String value = infos[0];
+        String ttl = infos[1];
 
         DNSInfo dnsInfo = new DNSInfo(type, name, value, ttl);
 
