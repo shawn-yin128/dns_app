@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="xiangyangyin"
+FROM openjdk:17-jdk-slim
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /
+
+COPY your-app.jar /us.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "us.jar"]
